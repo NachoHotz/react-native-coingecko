@@ -8,6 +8,7 @@ import CoinItem from './components/CoinItem';
 export default function App() {
   const [coins, setCoins] = useState([]);
   const [coinName, setCoinName] = useState('');
+  const [refresh, setRefresh] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -17,14 +18,6 @@ export default function App() {
     } catch (e) {
       console.error(e);
     }
-  };
-
-  const getCryptoByName = () => {
-    console.log(coinName);
-  };
-
-  const handleInputChange = (e) => {
-    setCoinName(e.target.value);
   };
 
   useEffect(() => {
@@ -38,16 +31,26 @@ export default function App() {
         <Text style={style.title}>CryptoMarket</Text>
         <TextInput
           style={style.searchInput}
-          onChange={handleInputChange}
-          onKeyPress={getCryptoByName}
+          placeholder="Search a coin..."
+          onChangeText={(term) => setCoinName(term)}
         />
       </View>
       <FlatList
-        data={coins}
+        data={coins.filter(
+          (coin) =>
+            coin.name.toLowerCase().includes(coinName.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(coinName.toLowerCase()),
+        )}
         renderItem={({ item }) => {
           return <CoinItem coin={item} />;
         }}
         showsVerticalScrollIndicator={false}
+        refreshing={refresh}
+        onRefresh={async () => {
+          setRefresh(true);
+          await fetchData();
+          setRefresh(false);
+        }}
       />
     </View>
   );
@@ -74,5 +77,11 @@ const style = StyleSheet.create({
     color: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
+  },
+
+  notFoundText: {
+    color: '#fff',
+    fontSize: 20,
+    flex: 1,
   },
 });

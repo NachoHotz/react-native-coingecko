@@ -20,7 +20,7 @@ export default function CoinItem({ coin }) {
               : style.priceDown,
           ]}
         >
-          {coin.price_change_percentage_24h}
+          {coin.price_change_percentage_24h} %
         </Text>
       </View>
     </View>
@@ -55,7 +55,7 @@ const style = StyleSheet.create({
   },
 
   coinSymbol: {
-    color: '#434343',
+    color: '#656565',
     marginTop: 5,
     textTransform: 'uppercase',
   },

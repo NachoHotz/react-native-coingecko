@@ -7,6 +7,7 @@ import CoinItem from './components/CoinItem';
 
 export default function App() {
   const [coins, setCoins] = useState([]);
+  const [coinName, setCoinName] = useState('');
 
   const fetchData = async () => {
     try {
@@ -18,6 +19,14 @@ export default function App() {
     }
   };
 
+  const getCryptoByName = () => {
+    console.log(coinName);
+  };
+
+  const handleInputChange = (e) => {
+    setCoinName(e.target.value);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -27,7 +36,11 @@ export default function App() {
       <StatusBar style="auto" />
       <View style={style.header}>
         <Text style={style.title}>CryptoMarket</Text>
-        <TextInput style={style.searchInput} />
+        <TextInput
+          style={style.searchInput}
+          onChange={handleInputChange}
+          onKeyPress={getCryptoByName}
+        />
       </View>
       <FlatList
         data={coins}
@@ -48,18 +61,18 @@ const style = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 50,
   },
 
   title: {
     fontSize: 20,
-    marginLeft: 20,
+    marginLeft: 15,
     color: '#fff',
   },
 
   searchInput: {
     color: '#fff',
-    borderBottomWidth: '20',
+    borderBottomWidth: 1,
     borderBottomColor: '#fff',
   },
 });

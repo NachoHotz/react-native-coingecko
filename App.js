@@ -26,12 +26,13 @@ export default function App() {
 
   return (
     <View style={style.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <View style={style.header}>
         <Text style={style.title}>CryptoMarket</Text>
         <TextInput
           style={style.searchInput}
           placeholder="Search a coin..."
+          placeholderTextColor="#808080"
           onChangeText={(term) => setCoinName(term)}
         />
       </View>
@@ -59,6 +60,7 @@ export default function App() {
 const style = StyleSheet.create({
   container: {
     backgroundColor: '#141414',
+    flex: 1,
   },
 
   header: {
@@ -77,5 +79,6 @@ const style = StyleSheet.create({
     color: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
+    width: '35%',
   },
 });

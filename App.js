@@ -78,10 +78,4 @@ const style = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
   },
-
-  notFoundText: {
-    color: '#fff',
-    fontSize: 20,
-    flex: 1,
-  },
 });
